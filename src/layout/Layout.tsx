@@ -1,25 +1,39 @@
-import React from 'react'
-import { Layout, Menu, theme } from 'antd'
+import { Layout, Menu, MenuProps, theme } from 'antd'
+import { Outlet, useNavigate } from 'react-router-dom'
+import Routes from '@/config/Routes'
 import Style from './Layout.module.less'
-import { ItemType, MenuItemType } from 'antd/es/menu/hooks/useItems'
 
 const { Header, Content, Sider } = Layout
 
-const items: ItemType<MenuItemType>[] = []
+type MenuItem = Required<MenuProps>['items'][number]
+
+function getItems(): MenuItem[] {
+  return Object.values(Routes).map((item) => {
+    const { path, label } = item
+    return { key: path, label }
+  })
+}
+
+const items: MenuItem[] = getItems()
 
 function LayoutComponent() {
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken()
 
+  const navigateTo = useNavigate()
+
   return (
     <Layout style={{ height: '100%' }}>
       <Sider className={Style.sider}>
         <div className="demo-logo-vertical" />
         <Menu
+          onSelect={(val) => {
+            navigateTo(val.key)
+          }}
           theme="light"
           mode="inline"
-          defaultSelectedKeys={['4']}
+          defaultSelectedKeys={[Routes.RichTextInsertBlock.key]}
           items={items}
         />
       </Sider>
@@ -38,7 +52,7 @@ function LayoutComponent() {
               borderRadius: borderRadiusLG,
             }}
           >
-            content
+            <Outlet />
           </div>
         </Content>
       </Layout>
