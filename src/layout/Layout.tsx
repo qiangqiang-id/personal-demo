@@ -33,7 +33,7 @@ function LayoutComponent() {
           }}
           theme="light"
           mode="inline"
-          defaultSelectedKeys={[Routes.RichTextInsertBlock.key]}
+          defaultSelectedKeys={[Routes.RichTextInsertBlock.path]}
           items={items}
         />
       </Sider>
