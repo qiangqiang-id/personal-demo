@@ -10,8 +10,11 @@ import { Button, message } from 'antd'
 import { useDebounceFn } from 'ahooks'
 import { NormalizedRange, Position, SelectRange } from '@/types/Range'
 import {
+  changeBlockContent,
   ellipsis,
   ensureBrAtEnd,
+  filterValidityBlocksNode,
+  getItemTextLength,
   getOffsetInRoot,
   getSelectionRangeInRoot,
   isAliasBlock,
@@ -67,7 +70,7 @@ let blocks: Blocks = [
   },
   {
     type: TEXT,
-    text: '，这是我语言的',
+    text: '，这是我预研的',
   },
   {
     type: BREAK,
@@ -78,46 +81,6 @@ let blocks: Blocks = [
     text: '富文本插块功能',
   },
 ]
-
-/**
- * 获取block字符长度
- *  */
-function getItemTextLength(item: Block) {
-  /** 如果是不可编辑元素，长度只算1，与 getOffsetInRoot 方法统一规则  */
-  return isTextBlockData(item) ? item.text.length : 1
-}
-
-function changeBlockContent(content: string, data: Block) {
-  const block = { ...data }
-
-  if (isAliasBlockData(block) || isTextBlockData(block)) {
-    block.text = content
-  }
-
-  if (isBreakBlockData(block)) {
-    block.durationMS = parseFloat(content)
-  }
-
-  return block
-}
-
-/**
- * 过滤有效的node
- */
-function filterValidityBlocksNode(nodes: ChildNode[]) {
-  return nodes.filter((block) => {
-    /** 如果是元素，必须有type */
-    if (block instanceof Element) {
-      const type = block.getAttribute(TYPE_PROP)
-      return !!type && [BREAK, TEXT, ALIAS].includes(type as BlockType)
-    }
-
-    /** 文字 */
-    if (block instanceof Text) return true
-
-    return false
-  })
-}
 
 export default function RichTextInsertBlock() {
   /** 当前编辑的类型 */

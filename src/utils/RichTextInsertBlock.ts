@@ -299,3 +299,53 @@ export function mergePlainText(textList: Blocks) {
 
   return newList
 }
+
+/**
+ * 过滤有效的node
+ * @param nodes 节点集合
+ * @returns
+ */
+export function filterValidityBlocksNode(nodes: ChildNode[]) {
+  return nodes.filter((block) => {
+    /** 如果是元素，必须有type */
+    if (block instanceof Element) {
+      const type = block.getAttribute(TYPE_PROP)
+      return !!type && [BREAK, TEXT, ALIAS].includes(type as BlockType)
+    }
+
+    /** 文字 */
+    if (block instanceof Text) return true
+
+    return false
+  })
+}
+
+/**
+ * 获取block字符长度
+ * @param block
+ * @returns
+ */
+export function getItemTextLength(block: Block) {
+  /** 如果是不可编辑元素，长度只算1，与 getOffsetInRoot 方法统一规则  */
+  return isTextBlockData(block) ? block.text.length : 1
+}
+
+/**
+ * 更改block 内容
+ * @param content 需要更新的内容
+ * @param data block 对象
+ * @returns
+ */
+export function changeBlockContent(content: string, data: Block) {
+  const block = { ...data }
+
+  if (isAliasBlockData(block) || isTextBlockData(block)) {
+    block.text = content
+  }
+
+  if (isBreakBlockData(block)) {
+    block.durationMS = parseFloat(content)
+  }
+
+  return block
+}
