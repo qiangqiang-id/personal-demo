@@ -30,7 +30,7 @@ import {
 } from '@/utils/RichTextInsertBlock'
 import { Blocks, Block } from '@/types/Block'
 import BlockType from '@/constants/RichTextBlockTypeEnum'
-import { msToS, sToMs } from '@/utils/unit'
+import { msToS, sToMs } from '@/utils/Unit'
 import { createSpanElement, isBrElement } from '@/utils/Element'
 import TextBlockPopover from './TextBlockPopover'
 
