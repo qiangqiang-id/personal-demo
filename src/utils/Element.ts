@@ -26,6 +26,37 @@ export function isBrElement(node: Node): node is HTMLBRElement {
 }
 
 /**
+ * 是否为svg元素节点
+ * @param node
+ * @returns boolean
+ */
+export function isSVGElement(node: Element): node is SVGElement {
+  return typeof (node as SVGElement).className === 'object'
+}
+
+/**
+ * 是否为HTML元素节点
+ * @param node
+ * @returns boolean
+ */
+export function isHTMLElement(node: Node): node is HTMLElement {
+  return (
+    isElement(node) &&
+    typeof (node as HTMLElement).style !== 'undefined' &&
+    !isSVGElement(node)
+  )
+}
+
+/**
+ * 是否为图片元素
+ * @param node
+ * @returns boolean
+ */
+export function isImageElement(node: Element): node is HTMLImageElement {
+  return node.tagName.toLowerCase() === 'img'
+}
+
+/**
  * 创建一个span元素
  * @param content
  * @param classNames

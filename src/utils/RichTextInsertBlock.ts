@@ -278,7 +278,7 @@ export function isTextWithNewlinesForRange(range: Range) {
 /**
  * 合并连续的纯文本
  * @param textList 文本列表
- * @returns {AllText[]}
+ * @returns {Blocks}
  */
 export function mergePlainText(textList: Blocks) {
   if (!textList.length) return []

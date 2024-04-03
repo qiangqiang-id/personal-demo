@@ -1,0 +1,39 @@
+@font-face {
+  font-family: 'test-family';
+  src: url(https://res-hzcc.huozuyun.com/font/2022/06/16/10/4c51796a173f61547d266ad9f7b4b502.ttf);
+}
+
+.screen-shot {
+  position: relative;
+}
+
+.preview {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.canvas {
+  width: 500px;
+  height: 1000px;
+  background: pink;
+  color: blue;
+  font-family: test-family;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+
+  .image {
+    margin: 0 auto;
+    width: 300px;
+  }
+
+  .text {
+    margin-top: 10px;
+    font-size: 16px;
+    letter-spacing: 2px;
+    line-height: 1.5;
+  }
+}

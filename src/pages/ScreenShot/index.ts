@@ -1,1 +1,1 @@
-export { default } from './ScreenShot'
+export { default } from './Screenshot'

@@ -2,7 +2,7 @@ import { createBrowserRouter } from 'react-router-dom'
 import Routes from '@/config/Routes'
 import Layout from '@/layout'
 import RichTextInsertBlock from '@/pages/RichTextInsertBlock'
-import ScreenShot from '@/pages/ScreenShot'
+import Screenshot from '@/pages/Screenshot'
 
 const routerData = [
   {
@@ -16,7 +16,7 @@ const routerData = [
 
       {
         ...Routes.ScreenShot,
-        element: <ScreenShot />,
+        element: <Screenshot />,
       },
     ],
   },
