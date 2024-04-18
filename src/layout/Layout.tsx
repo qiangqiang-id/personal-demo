@@ -1,5 +1,6 @@
+import { useEffect, useState } from 'react'
 import { Layout, Menu, MenuProps, theme } from 'antd'
-import { Outlet, useNavigate } from 'react-router-dom'
+import { Outlet, useNavigate, useLocation } from 'react-router-dom'
 import Routes from '@/config/Routes'
 import Style from './Layout.module.less'
 
@@ -21,7 +22,15 @@ function LayoutComponent() {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken()
 
+  const [defaultSelectedKeys, setDefaultSelectedKeys] = useState('')
+
   const navigateTo = useNavigate()
+
+  const location = useLocation()
+
+  useEffect(() => {
+    setDefaultSelectedKeys(location.pathname)
+  }, [])
 
   return (
     <Layout style={{ height: '100%' }}>
@@ -29,11 +38,12 @@ function LayoutComponent() {
         <div className="demo-logo-vertical" />
         <Menu
           onSelect={(val) => {
+            setDefaultSelectedKeys(val.key)
             navigateTo(val.key)
           }}
           theme="light"
           mode="inline"
-          defaultSelectedKeys={[Routes.RichTextInsertBlock.path]}
+          selectedKeys={[defaultSelectedKeys]}
           items={items}
         />
       </Sider>
@@ -42,7 +52,7 @@ function LayoutComponent() {
           className={Style.header}
           style={{ background: colorBgContainer }}
         >
-          小强技术预研demo
+          技术预研demo
         </Header>
         <Content style={{ margin: '24px 16px' }}>
           <div

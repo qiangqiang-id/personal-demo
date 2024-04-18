@@ -12,6 +12,13 @@ const Routes = {
     path: '/screen-shot',
     label: '截屏',
   },
+
+  /** 分片下载 */
+  FragmentDownload: {
+    key: 'fragmentDownload',
+    path: '/fragment-download',
+    label: '分片下载',
+  },
 } as const
 
 export default Routes
